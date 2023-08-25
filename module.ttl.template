@@ -22,7 +22,7 @@
 	rdfs:label "knowledge graph embedding model" ;
 	rdfs:comment "The knowledge graph embedding model for the given knowledge graph." .
 
-<result/heuristics> a alg:Result ;
+<parameter/heuristics> a alg:Result ;
 	rdfs:label "class expression learning heuristics" ;
 	rdfs:comment "Collected ehuristics needed for class expression learning." ;
 	rdfs:range prov:Entity .
