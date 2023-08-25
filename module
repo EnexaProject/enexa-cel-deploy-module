@@ -1,18 +1,32 @@
 #!/bin/sh
 set -eu
 
+PREFIX=http://w3id.org/dice-research/enexa/module/cel-deploy/
 
-# things which ENEXA is supposed to do
-mkdir -p $ENEXA_WRITEABLE_DIRECTORY
-echo "PREFIX enexa: <http://w3id.org/dice-research/enexa/ontology#> INSERT DATA { <$ENEXA_MODULE_INSTANCE_IRI> <http://example.org/cel-train/parameter#kg> <http://example.org/kg> . <http://example.org/kg> enexa:location 'enexa-dir://train.owl' }" \
-    |sparql-update "$ENEXA_META_DATA_ENDPOINT"
-echo "PREFIX enexa: <http://w3id.org/dice-research/enexa/ontology#> INSERT DATA { <$ENEXA_MODULE_INSTANCE_IRI> <http://example.org/cel-train/parameter#kge> <http://example.org/kge> . <http://example.org/kge> enexa:location 'enexa-dir://writeable/entity_embeddings.csv' }" \
-    |sparql-update "$ENEXA_META_DATA_ENDPOINT"
+# If this is a test run
+if [ "${TEST_RUN:-false}" = true ]
+then  
+  # things which ENEXA is supposed to do
+  mkdir -p $ENEXA_WRITEABLE_DIRECTORY
+  echo "PREFIX enexa: <http://w3id.org/dice-research/enexa/ontology#> INSERT DATA { <$ENEXA_MODULE_INSTANCE_IRI> <${PREFIX}parameter/kg> <http://example.org/kg> . <http://example.org/kg> enexa:location 'enexa-dir://train.owl' }" \
+      |sparql-update "$ENEXA_META_DATA_ENDPOINT"
+  echo "PREFIX enexa: <http://w3id.org/dice-research/enexa/ontology#> INSERT DATA { <$ENEXA_MODULE_INSTANCE_IRI> <${PREFIX}parameter/kge> <http://example.org/kge> . <http://example.org/kge> enexa:location 'enexa-dir://writeable/entity_embeddings.csv' }" \
+      |sparql-update "$ENEXA_META_DATA_ENDPOINT"
 
-echo "PREFIX enexa: <http://w3id.org/dice-research/enexa/ontology#> INSERT DATA { <$ENEXA_MODULE_INSTANCE_IRI> <http://example.org/cel-train/parameter#agent> <http://example.org/agent> . <http://example.org/agent> enexa:location 'enexa-dir://writeable/enexa.1689852295.W8r9PklKPq.DrillHeuristic_averaging.pth' }" \
-    |sparql-update "$ENEXA_META_DATA_ENDPOINT"
+  echo "PREFIX enexa: <http://w3id.org/dice-research/enexa/ontology#> INSERT DATA { <$ENEXA_MODULE_INSTANCE_IRI> <${PREFIX}parameter/heuristics> <http://example.org/agent> . <http://example.org/agent> enexa:location 'enexa-dir://writeable/enexa.1689852295.W8r9PklKPq.DrillHeuristic_averaging.pth' }" \
+      |sparql-update "$ENEXA_META_DATA_ENDPOINT"
+fi
+
+KG=$(enexa-parameter "${PREFIX}parameter/kg")
+KGE=$(enexa-parameter "${PREFIX}parameter/kge")
+HEURISTICS=$(enexa-parameter "${PREFIX}parameter/heuristics")
+
+echo python flask_end_point.py \
+	--path_knowledge_base "$KG" \
+	--path_knowledge_base_embeddings "$KGE" \
+	--pretrained_drill_avg_path "$HEURISTICS" \
 
 python flask_end_point.py \
-	--path_knowledge_base $(enexa-parameter "http://example.org/cel-train/parameter#kg") \
-	--path_knowledge_base_embeddings $(enexa-parameter "http://example.org/cel-train/parameter#kge") \
-	--pretrained_drill_avg_path $(enexa-parameter "http://example.org/cel-train/parameter#agent") \
+	--path_knowledge_base "$KG" \
+	--path_knowledge_base_embeddings "$KGE" \
+	--pretrained_drill_avg_path "$HEURISTICS" \
