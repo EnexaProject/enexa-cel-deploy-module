@@ -1,5 +1,5 @@
 # Don't change this file! It is generated based on module.ttl.template.
-@base           <http://w3id.org/dice-research/enexa/module/cel-train/> .
+@base           <http://w3id.org/dice-research/enexa/module/cel-deploy/> .
 @prefix alg:    <http://www.w3id.org/dice-research/ontologies/algorithm/2023/06/> .
 @prefix enexa:  <http://w3id.org/dice-research/enexa/ontology#> .
 @prefix hobbit: <http://w3id.org/hobbit/vocab#> .
@@ -23,7 +23,7 @@
 	rdfs:label "knowledge graph embedding model" ;
 	rdfs:comment "The knowledge graph embedding model for the given knowledge graph." .
 
-<result/heuristics> a alg:Result ;
+<parameter/heuristics> a alg:Result ;
 	rdfs:label "class expression learning heuristics" ;
 	rdfs:comment "Collected ehuristics needed for class expression learning." ;
 	rdfs:range prov:Entity .
