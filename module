@@ -21,12 +21,12 @@ KG=$(enexa-parameter "${PREFIX}parameter/kg")
 KGE=$(enexa-parameter "${PREFIX}parameter/kge")
 HEURISTICS=$(enexa-parameter "${PREFIX}parameter/heuristics")
 
-echo "python flask_end_point.py \
+echo "python deploy.py \
 	--path_knowledge_base $KG \
 	--path_knowledge_base_embeddings $KGE \
 	--pretrained_drill_avg_path $HEURISTICS"
 
-python flask_end_point.py \
+python deploy.py \
 	--path_knowledge_base "$KG" \
 	--path_knowledge_base_embeddings "$KGE" \
 	--pretrained_drill_avg_path "$HEURISTICS"
