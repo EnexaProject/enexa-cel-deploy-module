@@ -10,24 +10,15 @@ then
   mkdir -p $ENEXA_WRITEABLE_DIRECTORY
   echo "PREFIX enexa: <http://w3id.org/dice-research/enexa/ontology#> INSERT DATA { <$ENEXA_MODULE_INSTANCE_IRI> <${PREFIX}parameter/kg> <http://example.org/kg> . <http://example.org/kg> enexa:location 'enexa-dir://train.owl' }" \
       |sparql-update "$ENEXA_META_DATA_ENDPOINT"
-  echo "PREFIX enexa: <http://w3id.org/dice-research/enexa/ontology#> INSERT DATA { <$ENEXA_MODULE_INSTANCE_IRI> <${PREFIX}parameter/kge> <http://example.org/kge> . <http://example.org/kge> enexa:location 'enexa-dir://writeable/entity_embeddings.csv' }" \
-      |sparql-update "$ENEXA_META_DATA_ENDPOINT"
-
-  echo "PREFIX enexa: <http://w3id.org/dice-research/enexa/ontology#> INSERT DATA { <$ENEXA_MODULE_INSTANCE_IRI> <${PREFIX}parameter/heuristics> <http://example.org/agent> . <http://example.org/agent> enexa:location 'enexa-dir://writeable/enexa.1689852295.W8r9PklKPq.DrillHeuristic_averaging.pth' }" \
-      |sparql-update "$ENEXA_META_DATA_ENDPOINT"
 fi
 
 KG=$(enexa-parameter "${PREFIX}parameter/kg")
 KGE=$(enexa-parameter "${PREFIX}parameter/kge")
 HEURISTICS=$(enexa-parameter "${PREFIX}parameter/heuristics")
 
-echo "python deploy.py \
-	--path_knowledge_base $KG \
-	--path_knowledge_base_embeddings $KGE \
-	--pretrained_drill_avg_path $HEURISTICS"
+echo "ontolearn-webservice \
+	--path_knowledge_base $KG"
 
-python deploy.py \
-	--path_knowledge_base "$KG" \
-	--path_knowledge_base_embeddings "$KGE" \
-	--pretrained_drill_avg_path "$HEURISTICS"
+python ontolearn-webservice \
+	--path_knowledge_base "$KG"
 

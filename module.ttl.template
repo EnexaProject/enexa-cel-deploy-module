@@ -11,20 +11,9 @@
 	rdfs:label "ENEXA Class Expression Learning Training Module"@en ;
 	rdfs:comment "This module allows the training of a model (heuristics) that supports the Class Expression Learning."@en ;
 	hobbit:image <urn:container:docker:image:$(TAG)> ;
-	alg:parameter <parameter/kg>, <parameter/kge> ;
-	alg:produces <result/heuristics> .
+	alg:parameter <parameter/kg> .
 
 <parameter/kg> a alg:Parameter ;
 	rdfs:label "knowledge graph" ;
 	rdfs:comment "The knowledge graph on which class expression learning should be trained." .
-
-<parameter/kge> a alg:Parameter ;
-	rdfs:label "knowledge graph embedding model" ;
-	rdfs:comment "The knowledge graph embedding model for the given knowledge graph." .
-
-<parameter/heuristics> a alg:Result ;
-	rdfs:label "class expression learning heuristics" ;
-	rdfs:comment "Collected ehuristics needed for class expression learning." ;
-	rdfs:range prov:Entity .
-
 
