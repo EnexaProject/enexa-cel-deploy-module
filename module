@@ -13,12 +13,10 @@ then
 fi
 
 KG=$(enexa-parameter "${PREFIX}parameter/kg")
-KGE=$(enexa-parameter "${PREFIX}parameter/kge")
-HEURISTICS=$(enexa-parameter "${PREFIX}parameter/heuristics")
+#KGE=$(enexa-parameter "${PREFIX}parameter/kge")
+#HEURISTICS=$(enexa-parameter "${PREFIX}parameter/heuristics")
 
-echo "ontolearn-webservice \
-	--path_knowledge_base $KG"
+echo "ontolearn-webservice --path_knowledge_base $KG"
 
-python ontolearn-webservice \
-	--path_knowledge_base "$KG"
+ontolearn-webservice --path_knowledge_base "$KG"
 

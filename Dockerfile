@@ -1,6 +1,8 @@
 FROM python:3.10.14
 
-RUN pip3 install ontolearn==0.7.0
+RUN git clone https://github.com/dice-group/Ontolearn.git && \
+    cd Ontolearn && \
+    pip install -e .
 
 ADD . ./
 CMD ./module
