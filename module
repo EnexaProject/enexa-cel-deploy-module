@@ -8,15 +8,20 @@ if [ "${TEST_RUN:-false}" = true ]
 then  
   # things which ENEXA is supposed to do
   mkdir -p $ENEXA_WRITEABLE_DIRECTORY
+  # TODO Update the SPARQL endpoint definition below
   echo "PREFIX enexa: <http://w3id.org/dice-research/enexa/ontology#> INSERT DATA { <$ENEXA_MODULE_INSTANCE_IRI> <${PREFIX}parameter/kg> <http://example.org/kg> . <http://example.org/kg> enexa:location 'enexa-dir://train.owl' }" \
       |sparql-update "$ENEXA_META_DATA_ENDPOINT"
 fi
 
-KG=$(enexa-parameter "${PREFIX}parameter/kg")
+ENDPOINT=$(enexa-parameter "${PREFIX}parameter/endpoint")
+#KG=$(enexa-parameter "${PREFIX}parameter/kg")
 #KGE=$(enexa-parameter "${PREFIX}parameter/kge")
 #HEURISTICS=$(enexa-parameter "${PREFIX}parameter/heuristics")
 
-echo "ontolearn-webservice --path_knowledge_base $KG"
+#echo "ontolearn-webservice --path_knowledge_base $KG"
 
-ontolearn-webservice --path_knowledge_base "$KG"
+#ontolearn-webservice --path_knowledge_base "$KG"
 
+echo "ontolearn-webservice --path_knowledge_base $ENDPOINT"
+
+ontolearn-webservice --path_knowledge_base "$ENDPOINT"

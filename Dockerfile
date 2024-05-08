@@ -1,6 +1,6 @@
 FROM python:3.10.14
 
-RUN git clone -b hotfix-ontolearn-webservice https://github.com/dice-group/Ontolearn.git && \
+RUN git clone -b develop https://github.com/dice-group/Ontolearn.git && \
     cd Ontolearn && \
     pip install -e .
 

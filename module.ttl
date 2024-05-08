@@ -12,9 +12,9 @@
 	rdfs:label "ENEXA Class Expression Learning Training Module"@en ;
 	rdfs:comment "This module allows the training of a model (heuristics) that supports the Class Expression Learning."@en ;
 	hobbit:image <urn:container:docker:image:hub.cs.upb.de/enexa/images/enexa-cel-deploy-module:1.1.0> ;
-	alg:parameter <parameter/kg> .
+	alg:parameter <parameter/endpoint> .
 
-<parameter/kg> a alg:Parameter ;
-	rdfs:label "knowledge graph" ;
-	rdfs:comment "The knowledge graph on which class expression learning should be trained." .
+<parameter/endpoint> a alg:Parameter ;
+	rdfs:label "SPARQL endpoint" ;
+	rdfs:comment "The SPARQL endpoint at which the dataset can be accessed." .
 
