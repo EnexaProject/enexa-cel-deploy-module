@@ -1,5 +1,5 @@
 IMAGE=hub.cs.upb.de/enexa/images/enexa-cel-deploy-module
-VERSION=1.3.0
+VERSION=1.4.1
 TAG=$(IMAGE):$(VERSION)
 TEST_DIR=test-shared-dir
 
